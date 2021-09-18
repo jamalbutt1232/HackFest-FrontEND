@@ -1,0 +1,41 @@
+@media all and (max-width: 600px) {
+  .grandparent {
+    height: auto;
+  }
+}
+@media all and (max-width: 1080px) {
+  .grandparent {
+    height: auto;
+  }
+}
+
+.grandparent {
+  display: "flex";
+  padding: 80;
+  height: 100vh;
+  width: 100vw;
+}
+
+.parent {
+  /* height: auto; */
+  /* width: "100%"; */
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+
+  /* flex: 1; */
+}
+
+.child {
+  /* background-color: brown; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  /* max-width: 300;
+  max-height: 300; */
+  min-height: 200px;
+  min-width: 200px;
+}
