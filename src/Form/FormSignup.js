@@ -3,12 +3,34 @@ import validate from './validateInfo';
 import useForm from './useForm';
 import './Form.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setUserData,
+  selectUserData
+} from "./../slices/userAuthSlice";
 
 const FormSignup = ({ submitForm }) => {
+  const dispatch = useDispatch();
   const { handleChange, handleSubmit, values, errors } = useForm(
     submitForm,
     validate
   );
+  const [userId,setUserId]=useState('')
+  const setUser = () =>{
+    
+    axios.post('http://localhost:8080/api/user/', {
+      name: values.username,
+    })
+    .then(function (response) {
+      
+      dispatch(setUserData(response.data))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className='form-content-right'>
@@ -52,8 +74,8 @@ const FormSignup = ({ submitForm }) => {
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
-        <Link to="/home">
-            <button className='form-input-btn' type='submit'>
+        <Link to={{pathname: "/home", state:{userId} }} >
+            <button className='form-input-btn' type='submit' onClick={setUser}>
             <b> Sign In </b>
             </button>
         </Link>

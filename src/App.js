@@ -1,5 +1,4 @@
 import './App.css';
-import Nav from './Navbar/Nav';
 import {
   Switch,
   Route,
