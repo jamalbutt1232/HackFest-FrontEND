@@ -36,11 +36,11 @@ const FormSignup = ({ submitForm }) => {
   return (
     <div className='form-content-right'>
       <form onSubmit={handleSubmit} className='form' noValidate>
-        <h1>
+        <h1 style={{fontSize:26, fontWeight:'bolder'}}>
           Chit Chat
         </h1>
         <div className='form-inputs'>
-          <label className='form-label'>Username</label>
+          <label className='form-label' style={{fontSize:18}}>Username</label>
           <input
             className='form-input'
             type='text'
@@ -48,11 +48,12 @@ const FormSignup = ({ submitForm }) => {
             placeholder='Enter your username'
             value={values.username}
             onChange={handleChange}
+            style={{color:"black"}}
           />
           {errors.username && <p>{errors.username}</p>}
         </div>
         <div className='form-inputs'>
-          <label className='form-label'>Email</label>
+          <label className='form-label' style={{fontSize:18}}>Email</label>
           <input
             className='form-input'
             type='email'
@@ -60,28 +61,31 @@ const FormSignup = ({ submitForm }) => {
             placeholder='Enter your email'
             value={values.email}
             onChange={handleChange}
+            style={{color:"black"}}
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
         <div className='form-inputs'>
-          <label className='form-label'>Password</label>
+          <label className='form-label' style={{fontSize:18}}>Password</label>
           <input
             className='form-input'
             type='password'
             name='password'
             placeholder='Enter your password'
             value={values.password}
+            style={{color:"black"}}
             onChange={handleChange}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
         <Link to={{pathname: "/home", state:{userId} }} >
-            <button className='form-input-btn' type='submit' onClick={setUser}>
+            <button className='form-input-btn' type='submit' onClick={setUser}             style={{color:"white" , fontSize:16}}>
+              
             <b> Sign In </b>
             </button>
         </Link>
-        <span className='form-input-login'>
-          Want to register an organizaton? Register <a href='#'>here</a>
+        <span className='form-input-login' style={{color:"white" , fontSize:16}}>
+          Want to register an organizaton? Register <a href='#' onClick={()=>alert("Register your organization")}>here</a>
         </span>
       </form>
     </div>

@@ -31,7 +31,8 @@ const Home = (props) => {
   
   const [buttonpressed, setButtonPresses]  = useState(false)
   const [myVar, setMyVar]  = useState(false)
-  const [messages, setMessages] = React.useState([])
+  const [messages, setMessages] = React.useState([{id:'01', data:"My Names i Jama" ,name:""}  
+  , {id:'02', data:"My Names i <ao" ,name:""}])
 
   const [input,setInput] = useState(null)
   // const [val,setVal] = useState(null)
@@ -40,30 +41,23 @@ const Home = (props) => {
     console.log("above axios response.data response.data" )
 
     axios.get(`http://localhost:8080/api/user/fetch-messages?chatter=${userID}&chattee=${otherUserID}`).then((response)=>{
-      console.log("response.data response.data" + response.data[0].message)
-      // {id:'02', data:"My Names i <ao" ,name:"Maisam"}
-    //   [
-    //     {
-    //          "id": "jnC5l8z3DOH1b1mHtEMz",
-    //          "timeStamp": {
-    //              "seconds": 1632009247,
-    //              "nanoseconds": 905000000
-    //          },
-    //          "senderID": "5def8c61-511b-46a8-b835-2147b2cfb1a3",
-    //          "recieverID": "0b863044-d5b6-4a2a-97b4-0fa61da440f2",
-    //          "message": "sd xD"
-    //      }
-    //  ]
-      // console.log("meassages list 01 :"+ response.id)
+      console.log("response.data response.data response.data" + (response))
+      
+      console.log("meassages list 01 :"+ response.data)
 
       // setTheArray(oldArray => [...oldArray, newElement]);
-
-      setMessages( response.data[0].message)
-      console.log("meassages list meassages list:"+ messages)
+      const val  ={
+        data:response.data[0].message,
+        name:"JAMAL",
+        id:response.data[0].id
+      }
+      setMessages(response.data)
+      // setMessages( response.data)
+      console.log( "response.data response.data :"  +messages)
     }).catch((err)=>{
-
+      console.log("errr in gerch msgs :" + err)
     })
-  } )
+  }  )
 
   const getInput=()=>{
     axios.post(`http://localhost:8080/api/user/send-message?message=${input}&chatter=${userID}&chattee=${otherUserID}`)
@@ -121,7 +115,9 @@ const Home = (props) => {
       clearInterval(timerID)
     }
   } ,  [buttonpressed])
-
+  const AlertBox = () =>{
+    alert("VIDEO CALL")
+  }
   // useEffect(() => {
   //   const timerID = setInterval(() =>   { 
   //     axios.get('http://localhost:8080/api/user/fetch-online').then((response)=>{
@@ -187,11 +183,12 @@ const Home = (props) => {
 
             <div style={{display:'flex'  ,justifyContent:"center"  , alignItems:"center"}}>
               <div class="col-md-3 col-sm-3 col-xs-6"><a href="#" class="btn btn-sm animated-button thar-two" onClick={Broadcast}>Chat</a></div>
-              <div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button thar-four">Video</a> </div>
+              <div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button thar-four" onClick={AlertBox}>Video</a> </div>
             </div> 
 
 
             {showLoader && 
+            <div style={{justifyContent:"center", alignContent:"center" }}>
               <Loader
                 type="Puff"
                 color="#00BFFF"
@@ -199,24 +196,34 @@ const Home = (props) => {
                 width={300}
                 timeout={3000} //3 secs
               />
+                          </div>
             }
+
             {showChat && 
 
               <div>
                 <div style={divStyle}>
 
                 {messages.map(message =>
-                    <div key={uuidv4} >
-                      <p>{message}</p>
-                    </div>
-                  )}
+                  <div key={uuidv4()} >
+                    <h2>{message.name}</h2><p>{message.message}</p>
+                  </div>
+                )}
               </div>  
                   <div style={{display:'flex' , flex:1}}>
+
+                  <div  
+                    onClick={()=>getInput()}
+                    style={{position:'fixed' , bottom:30  ,
+                        height:100,width:150 , Left:0 , color:"black",float:'right', 
+                      padding:10,fontSize:24}}> <a href="#" class="btn btn-sm animated-button thar-four">Next</a></div>
+
+                    
                     <textarea  
 
                     onChange={e=> setInput(e.target.value)}
                     value={input}
-                    style={{position:'fixed' , bottom:20 , width:"80%" ,height:80 , marginLeft:"5%" , color:"black",
+                    style={{position:'fixed' , bottom:20 , width:"80%" ,height:80 , marginLeft:"8%" , color:"black",
                                       padding:10,fontSize:16
                     }}/>
                     <div  
