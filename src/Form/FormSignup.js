@@ -24,8 +24,9 @@ const FormSignup = ({ submitForm }) => {
       name: values.username,
     })
     .then(function (response) {
-      
+      console.log("response.data) : " + response.data)
       dispatch(setUserData(response.data))
+      
     })
     .catch(function (error) {
       console.log(error);
