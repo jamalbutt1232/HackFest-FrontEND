@@ -4,6 +4,8 @@ import ScrollToTop from 'react-scroll-up'
 import axios from 'axios'
 import { Link,useLocation } from 'react-router-dom'
 import Loader from "react-loader-spinner";
+import { v4 as uuidv4 } from 'uuid';
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   setUserData,
@@ -29,11 +31,13 @@ const Home = (props) => {
   
   const [buttonpressed, setButtonPresses]  = useState(false)
   const [myVar, setMyVar]  = useState(false)
-  const [messages, setMessages] = React.useState([])
+  const [messages, setMessages] = React.useState([{}])
 
   const [input,setInput] = useState(null)
+  // const [val,setVal] = useState(null)
 
   useLayoutEffect(()=>{
+    console.log("above axios response.data response.data" )
 
     axios.get(`http://localhost:8080/api/user/fetch-messages?chatter=${userID}&chattee=${otherUserID}`).then((response)=>{
       console.log("response.data response.data" + response.data[0].message)
@@ -50,11 +54,18 @@ const Home = (props) => {
     //          "message": "sd xD"
     //      }
     //  ]
-      setMessages(messages => [...messages , response.data])
+      console.log("meassages list 01 :"+ response.id)
+      const crack = {
+        'id':response.data[0].message,
+        'message':response.data[0].message,
+      }
+
+      setMessages({crack})
+      console.log("meassages list :"+ messages)
     }).catch((err)=>{
 
     })
-  })
+  } )
 
   const getInput=()=>{
     axios.post(`http://localhost:8080/api/user/send-message?message=${input}&chatter=${userID}&chattee=${otherUserID}`)
@@ -198,7 +209,7 @@ const Home = (props) => {
 
                 {messages.map(message =>
                     <div key={message.id} >
-                      <h2>{message.name}</h2><p>{message.message}</p>
+                      <p>{message.message}</p>
                     </div>
                   )}
               </div>  
