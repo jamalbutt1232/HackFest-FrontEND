@@ -31,7 +31,7 @@ const Home = (props) => {
   
   const [buttonpressed, setButtonPresses]  = useState(false)
   const [myVar, setMyVar]  = useState(false)
-  const [messages, setMessages] = React.useState([{}])
+  const [messages, setMessages] = React.useState([])
 
   const [input,setInput] = useState(null)
   // const [val,setVal] = useState(null)
@@ -54,14 +54,12 @@ const Home = (props) => {
     //          "message": "sd xD"
     //      }
     //  ]
-      console.log("meassages list 01 :"+ response.id)
-      const crack = {
-        'id':response.data[0].message,
-        'message':response.data[0].message,
-      }
+      // console.log("meassages list 01 :"+ response.id)
 
-      setMessages({crack})
-      console.log("meassages list :"+ messages)
+      // setTheArray(oldArray => [...oldArray, newElement]);
+
+      setMessages( response.data[0].message)
+      console.log("meassages list meassages list:"+ messages)
     }).catch((err)=>{
 
     })
@@ -208,8 +206,8 @@ const Home = (props) => {
                 <div style={divStyle}>
 
                 {messages.map(message =>
-                    <div key={message.id} >
-                      <p>{message.message}</p>
+                    <div key={uuidv4} >
+                      <p>{message}</p>
                     </div>
                   )}
               </div>  
